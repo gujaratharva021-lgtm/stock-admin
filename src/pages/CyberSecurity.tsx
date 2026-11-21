@@ -150,8 +150,8 @@ export function CsSuspiciousPage() {
   const rows = (() => {
     if (!logs) return null
     const m = new Map<string, { n: number; last: string }>()
-    logs.filter((l) => isLogin(l) && l.result === 'FAILURE' && l.user_id).forEach((l) => {
-      const k = String(l.user_id)
+    logs.filter((l) => isLogin(l) && l.result === 'FAILURE' && (l.user_id || l.resource_id)).forEach((l) => {
+      const k = String(l.user_id || l.resource_id)
       const v = m.get(k) ?? { n: 0, last: l.created_at }
       v.n++
       if (l.created_at > v.last) v.last = l.created_at
