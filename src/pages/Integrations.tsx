@@ -160,13 +160,9 @@ export function BankIntegration() {
 
 export function KycIntegration() {
   const { d, e } = useData()
-  const cf = d?.integrations.find((i) => i.key === 'cashfree')
   return (
     <Page title="KYC Provider" subtitle="Identity verification provider" e={e}>
-      <Items items={by(d, 'kyc')} />
-      {cf?.status === 'DEGRADED' && (
-        <Note t="If the error mentions IP not whitelisted, add this server's outbound IP in the Cashfree dashboard under Verification Suite, Developers, Whitelisted IPs. On Render free plan the IP can change after a redeploy." />
-      )}
+      <Note t="No KYC provider is integrated in the backend, so there is nothing to list or monitor here." />
       <Note t="KYC in the app is currently checked locally (PAN format, simulated Aadhaar OTP) and approved manually under KYC. A live provider also needs a registered business with business PAN and bank account." />
     </Page>
   )
