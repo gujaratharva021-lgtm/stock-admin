@@ -33,7 +33,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
   const res = await fetch(`/api/v1${path}`, { ...options, headers })
 
-  if (res.status === 401 && !path.startsWith('/admin-2fa') && path !== '/auth/login') {
+  if (res.status === 401 && (!path.startsWith('/admin-2fa') || path === '/admin-2fa/status') && path !== '/auth/login') {
     clearToken()
     window.location.href = '/admin/login'
     throw new ApiError(401, 'unauthorized')
