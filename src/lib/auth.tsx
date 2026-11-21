@@ -26,7 +26,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(res.user)
   }
 
-  function logout() {
+  async function logout() {
+    try {
+      await api.post('/auth/logout')
+    } catch {
+      // revoke is best-effort; always clear the local session
+    }
     clearToken()
     setUser(null)
     window.location.href = '/admin/login'
