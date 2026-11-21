@@ -74,10 +74,11 @@ export function ActivationPage() {
   const n = (s: string) => (users ? String(users.filter((u) => state(u, st[u.id]) === s).length) : '-')
   return (
     <Page title="Account Activation" subtitle="Which accounts are fully activated and what is pending" e={e}>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <StatCard label="Active" value={n('Active')} tone="brand" />
         <StatCard label="Email not verified" value={n('Email not verified')} tone="amber" />
-        <StatCard label="KYC pending" value={users ? String(users.filter((u) => state(u, st[u.id]).startsWith('KYC')).length) : '-'} tone="amber" />
+        <StatCard label="KYC pending" value={n('KYC pending')} tone="amber" />
+        <StatCard label="KYC rejected" value={n('KYC rejected')} tone="red" />
         <StatCard label="Frozen" value={n('Frozen / blocked')} tone="red" />
       </div>
       <Table cols={['Name', 'Email', 'Email verified', 'KYC', 'Account state', 'Created']} rows={rows} empty="No accounts." />
