@@ -51,8 +51,8 @@ export default function Dashboard() {
         .then(setRisk)
         .catch(() => setRisk(null)),
       api
-        .get<{ logs: AuditLog[] }>('/admin/audit-logs?limit=8')
-        .then((r) => setActivity(r.logs))
+        .get<{ logs: AuditLog[] }>('/admin/audit-logs')
+        .then((r) => setActivity((r.logs ?? []).slice(0, 8)))
         .catch(() => setActivity([])),
     ]).catch((err) => setError(err instanceof Error ? err.message : 'Failed to load dashboard'))
   }, [])
