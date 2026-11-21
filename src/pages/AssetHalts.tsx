@@ -25,7 +25,7 @@ export default function AssetHalts() {
   const load = () =>
     api
       .get<{ assets: AssetRow[] }>('/admin/assets')
-      .then((r) => setRows(r.assets))
+      .then((r) => setRows(r.assets ?? []))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load assets'))
 
   useEffect(() => {

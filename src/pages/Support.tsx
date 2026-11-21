@@ -31,7 +31,7 @@ export default function Support() {
   const load = () =>
     api
       .get<{ tickets: TicketRow[] }>('/admin/tickets')
-      .then((r) => setRows(r.tickets))
+      .then((r) => setRows(r.tickets ?? []))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load tickets'))
 
   const openSeq = useRef(0)

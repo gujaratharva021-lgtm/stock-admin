@@ -21,7 +21,7 @@ export default function News() {
   const load = () =>
     api
       .get<{ news: NewsRow[] }>('/news')
-      .then((r) => setRows(r.news))
+      .then((r) => setRows(r.news ?? []))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load news'))
 
   useEffect(() => {

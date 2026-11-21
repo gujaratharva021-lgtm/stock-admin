@@ -84,7 +84,7 @@ function CorpPage({ cfg }: { cfg: Cfg }) {
     const seq = ++loadSeq.current
     return api
       .get<{ actions: Row[] }>(`/admin/corporate-actions?type=${cfg.type}`)
-      .then((r) => { if (seq === loadSeq.current) setRows(r.actions) })
+      .then((r) => { if (seq === loadSeq.current) setRows(r.actions ?? []) })
       .catch((e) => { if (seq === loadSeq.current) setError(e instanceof Error ? e.message : 'Failed to load') })
   }, [cfg.type])
 

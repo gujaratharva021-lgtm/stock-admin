@@ -24,7 +24,7 @@ export default function PendingOrders() {
   const load = () =>
     api
       .get<{ orders: PendingRow[] }>('/admin/pending-orders')
-      .then((r) => setRows(r.orders))
+      .then((r) => setRows(r.orders ?? []))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load orders'))
 
   useEffect(() => {

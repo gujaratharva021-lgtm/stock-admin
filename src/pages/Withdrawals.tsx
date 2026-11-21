@@ -22,7 +22,7 @@ export default function Withdrawals() {
   const load = () =>
     api
       .get<{ withdrawals: WRow[] }>('/admin/withdrawals')
-      .then((r) => setRows(r.withdrawals))
+      .then((r) => setRows(r.withdrawals ?? []))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load withdrawals'))
 
   useEffect(() => {

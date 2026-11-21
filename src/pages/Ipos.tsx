@@ -26,7 +26,7 @@ export default function Ipos() {
   const load = () =>
     api
       .get<{ ipos: IpoRow[] }>('/admin/ipos')
-      .then((r) => setRows(r.ipos))
+      .then((r) => setRows(r.ipos ?? []))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load IPOs'))
 
   useEffect(() => {
