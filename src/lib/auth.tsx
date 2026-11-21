@@ -9,8 +9,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!getToken()) return
     api
-      .get<User>('/auth/me')
-      .then((u) => { if (u.is_admin) setUser(u); else clearToken() })
+      .get<{ user: User }>('/auth/me')
+      .then((res) => { const u = res.user; if (u && u.is_admin) setUser(u); else clearToken() })
       .catch(() => clearToken())
       .finally(() => setLoading(false))
   }, [])
