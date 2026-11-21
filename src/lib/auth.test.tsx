@@ -33,7 +33,7 @@ describe('AuthProvider admin checks', () => {
 
   it('session restore clears the token for non-admin users', async () => {
     setToken('t')
-    vi.mocked(api.get).mockResolvedValue({ id: '1', email: 'c@x.y', is_admin: false })
+    vi.mocked(api.get).mockResolvedValue({ user: { id: '1', email: 'c@x.y', is_admin: false } })
     render(<AuthProvider><Probe onCtx={() => {}} /></AuthProvider>)
     expect(await screen.findByText('no-user')).toBeTruthy()
     expect(getToken()).toBeNull()
@@ -41,7 +41,7 @@ describe('AuthProvider admin checks', () => {
 
   it('session restore keeps admin users', async () => {
     setToken('t')
-    vi.mocked(api.get).mockResolvedValue({ id: '1', email: 'a@x.y', is_admin: true })
+    vi.mocked(api.get).mockResolvedValue({ user: { id: '1', email: 'a@x.y', is_admin: true } })
     render(<AuthProvider><Probe onCtx={() => {}} /></AuthProvider>)
     expect(await screen.findByText('user:a@x.y')).toBeTruthy()
   })
