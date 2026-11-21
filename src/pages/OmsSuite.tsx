@@ -62,7 +62,7 @@ function usePending() {
   const [rows, setRows] = useState<Po[] | null>(null)
   const [e, setE] = useState<string | null>(null)
   const load = () => {
-    api.get<unknown>('/admin/pending-orders').then((d) => { setRows(toArr<Po>(d, 'orders')); setE(null) }).catch((x) => setE(msg(x)))
+    return api.get<unknown>('/admin/pending-orders').then((d) => { setRows(toArr<Po>(d, 'orders')); setE(null) }).catch((x) => setE(msg(x)))
   }
   useEffect(() => { load() }, [])
   return { rows, e, setE, load }
@@ -157,7 +157,7 @@ export function ModifyCancelPage() {
     setBusy(o.id)
     try {
       await api.post(`/admin/pending-orders/${o.id}/cancel`)
-      load()
+      await load()
     } catch (x) {
       setE(msg(x))
     } finally {

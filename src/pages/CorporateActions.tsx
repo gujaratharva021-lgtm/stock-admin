@@ -111,7 +111,7 @@ function CorpPage({ cfg }: { cfg: Cfg }) {
       await api.post('/admin/corporate-actions', body)
       setForm({ type: cfg.type })
       setInfo('Announced. Review it below and press Apply when ready.')
-      load()
+      await load()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to create')
     } finally {
@@ -126,7 +126,7 @@ function CorpPage({ cfg }: { cfg: Cfg }) {
     try {
       const res = await api.post<{ affected_users: number }>(`/admin/corporate-actions/${r.id}/apply`)
       setInfo(`Applied. ${res.affected_users} holders updated.`)
-      load()
+      await load()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to apply')
     }
@@ -136,7 +136,7 @@ function CorpPage({ cfg }: { cfg: Cfg }) {
     if (!window.confirm(`Cancel this ${r.type} on ${r.symbol}?`)) return
     try {
       await api.post(`/admin/corporate-actions/${r.id}/cancel`)
-      load()
+      await load()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to cancel')
     }
